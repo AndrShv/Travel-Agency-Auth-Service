@@ -307,3 +307,61 @@
 2025-10-26T20:59:07.774+02:00  INFO 31927 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-10-26T20:59:07.775+02:00  INFO 31927 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-10-26T20:59:07.783+02:00  INFO 31927 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-26T21:12:48.235+02:00  INFO 32722 --- [main] com.example.project.AuthApplication      : Starting AuthApplication using Java 21.0.7 with PID 32722 (/Users/andrshv/IdeaProjects/travel-agency-modified/target/classes started by andrshv in /Users/andrshv/IdeaProjects/travel-agency-modified)
+2025-10-26T21:12:48.236+02:00  INFO 32722 --- [main] com.example.project.AuthApplication      : The following 1 profile is active: "dev"
+2025-10-26T21:12:48.454+02:00  INFO 32722 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-26T21:12:48.474+02:00  INFO 32722 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 1 JPA repository interface.
+2025-10-26T21:12:48.733+02:00  INFO 32722 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-10-26T21:12:48.736+02:00  INFO 32722 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-26T21:12:48.737+02:00  INFO 32722 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2025-10-26T21:12:48.754+02:00  INFO 32722 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-26T21:12:48.754+02:00  INFO 32722 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 505 ms
+2025-10-26T21:12:48.816+02:00  INFO 32722 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-26T21:12:48.834+02:00  INFO 32722 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-10-26T21:12:48.843+02:00  INFO 32722 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-26T21:12:48.906+02:00  INFO 32722 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-26T21:12:48.913+02:00  INFO 32722 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-26T21:12:49.038+02:00  INFO 32722 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5529522f
+2025-10-26T21:12:49.039+02:00  INFO 32722 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-26T21:12:49.315+02:00  INFO 32722 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-26T21:12:49.329+02:00  INFO 32722 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-26T21:12:49.563+02:00  WARN 32722 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-26T21:12:49.712+02:00  INFO 32722 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1798c749, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@726ee6cf, org.springframework.security.web.context.SecurityContextHolderFilter@ee7a538, org.springframework.security.web.header.HeaderWriterFilter@3c3a767, org.springframework.web.filter.CorsFilter@4a83d61c, org.springframework.security.web.authentication.logout.LogoutFilter@16a78700, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@25639668, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@48dc06a9, com.example.project.jwt.JwtFilter@3ad9fea, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5ad13be4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d79a69b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@51158fb1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@624268ab, org.springframework.security.web.session.SessionManagementFilter@31887330, org.springframework.security.web.access.ExceptionTranslationFilter@54a7d1b9, org.springframework.security.web.access.intercept.AuthorizationFilter@7baea18b]
+2025-10-26T21:12:49.774+02:00  WARN 32722 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2025-10-26T21:12:50.735+02:00  INFO 32722 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2025-10-26T21:12:50.740+02:00  INFO 32722 --- [main] com.example.project.AuthApplication      : Started AuthApplication in 2.656 seconds (process running for 2.779)
+2025-10-26T21:12:54.020+02:00  INFO 32722 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-26T21:12:54.020+02:00  INFO 32722 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-26T21:12:54.021+02:00  INFO 32722 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-10-26T21:12:54.025+02:00 DEBUG 32722 --- [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2025-10-26T21:12:54.027+02:00 DEBUG 32722 --- [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-10-26T21:12:54.027+02:00 DEBUG 32722 --- [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2025-10-26T21:12:54.071+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    : ┌──▶ ВХОД: AuthRestController.login
+2025-10-26T21:12:54.071+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    : │ Параметры:
+2025-10-26T21:12:54.071+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    : │   • dto = [PROTECTED]
+2025-10-26T21:12:54.071+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : ┌─────────────────────────────────────────────────
+2025-10-26T21:12:54.071+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : │ ➤ ВХОД: AuthServiceImpl.loginUser
+2025-10-26T21:12:54.071+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : │ Параметры:
+2025-10-26T21:12:54.071+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : │   • dto = [PROTECTED]
+2025-10-26T21:12:54.071+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    :   ┌──▶ ВХОД: AuthServiceImpl.loginUser
+2025-10-26T21:12:54.072+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    :   │ Параметры:
+2025-10-26T21:12:54.072+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    :   │   • dto = [PROTECTED]
+2025-10-26T21:12:54.072+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.service.AuthServiceImpl      : Попытка входа пользователя: testuser@example.com
+2025-10-26T21:12:54.106+02:00 DEBUG 32722 --- [http-nio-8081-exec-1] org.hibernate.SQL                        : select u1_0.id,u1_0.active,u1_0.balance,u1_0.email,u1_0.password,u1_0.reset_token,u1_0.role,u1_0.username from users u1_0 where u1_0.email=?
+2025-10-26T21:12:54.199+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.service.AuthServiceImpl      : Пользователь testuser@example.com успешно вошел
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    :   │ ✓ УСПЕШНО: AuthServiceImpl.loginUser
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    :   │ Результат: UserResponseDto [PROTECTED]
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    :   │ ⏱ Время: 129 мс
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    :   └──▶ ВЫХОД: AuthServiceImpl.loginUser
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : │
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : │ ✓ УСПЕШНО: AuthServiceImpl.loginUser
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : │ Результат: UserResponseDto [PROTECTED]
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : │ ⏱ Время: 129 мс
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] c.e.project.log.DetailedLoggingAspect    : └─────────────────────────────────────────────────
+2025-10-26T21:12:54.200+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    : │ ✓ УСПЕШНО: AuthRestController.login
+2025-10-26T21:12:54.201+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    : │ Результат: ResponseEntity [PROTECTED]
+2025-10-26T21:12:54.201+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    : │ ⏱ Время: 129 мс
+2025-10-26T21:12:54.201+02:00  INFO 32722 --- [http-nio-8081-exec-1] com.example.project.log.LoggingAspect    : └──▶ ВЫХОД: AuthRestController.login
+2025-10-26T21:13:02.828+02:00  INFO 32722 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-26T21:13:02.829+02:00  INFO 32722 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-26T21:13:02.836+02:00  INFO 32722 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

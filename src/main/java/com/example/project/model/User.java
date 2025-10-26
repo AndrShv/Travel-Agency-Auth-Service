@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.example.project.enums.Role;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 

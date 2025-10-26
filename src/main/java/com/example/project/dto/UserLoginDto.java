@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 public class UserLoginDto {
 
+    @NotBlank(message = "Email обязателен")
     @Email(message = "Некорректный email")
     private String email;
 

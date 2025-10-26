@@ -4,22 +4,20 @@ import com.example.project.dto.UserLoginDto;
 import com.example.project.dto.UserRegistrationDto;
 import com.example.project.dto.UserResponseDto;
 import com.example.project.enums.Role;
-import com.example.project.exceptions.InvalidCredentialsException;
-import com.example.project.exceptions.UserAlreadyExistsException;
-import com.example.project.exceptions.UserNotFoundByEmailException;
+import com.example.project.exceptions.*;
 import com.example.project.interfaces.AuthService;
 import com.example.project.jwt.JwtUtil;
 import com.example.project.model.User;
 import com.example.project.repository.UserRepository;
-import org.springframework.stereotype.Service;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -30,10 +28,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void registerUser(UserRegistrationDto dto) {
+        log.info("Регистрация пользователя: {}", dto.getEmail());
 
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new UserAlreadyExistsException("Пользователь с таким email уже существует");
         }
+
+        log.info("Создание нового пользователя с email: {}", dto.getEmail());
 
         User user = new User();
         user.setUsername(dto.getUsername());
@@ -43,39 +44,32 @@ public class AuthServiceImpl implements AuthService {
         user.setBalance(BigDecimal.ZERO);
         user.setActive(true);
 
+
+        log.info("Попытка сохранить пользователя: {}", user.getUsername(), dto.getEmail(), user.getRole());
+
         User savedUser = userRepository.save(user);
 
+        log.info("Пользователь успешно зарегистрирован: {}", savedUser.getUsername(), savedUser.getEmail(), savedUser.getRole());
     }
 
     @Override
     public UserResponseDto loginUser(UserLoginDto dto) {
+        log.info("Попытка входа пользователя: {}", dto.getEmail());
 
-        if (dto.getEmail() == null || dto.getEmail().isBlank()) {
-            throw new InvalidCredentialsException("Необходимо указать email для входа.");
-        }
-
-        User user;
-        if (dto.getEmail() != null && !dto.getEmail().isBlank()) {
-            user = userRepository.findByEmail(dto.getEmail())
-                    .orElseThrow(() -> {
-                        return new UserNotFoundByEmailException("Пользователь с указанным email не найден.");
-                    });
-        } else {
-            throw new InvalidCredentialsException("Необходимо  указать email для входа.");
-        }
+        User user = userRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new UserNotFoundByEmailException("Пользователь с указанным email не найден."));
 
         if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            throw new InvalidCredentialsException("Введен неверный пароль.");
+            throw new InvalidPasswordException("Введен неверный пароль.");
         }
 
         if (user.getRole() == null) {
-            throw new InvalidCredentialsException("Профиль пользователя не настроен (отсутствует роль).");
+            throw new InvalidUserRoleException("Профиль пользователя не настроен (отсутствует роль).");
         }
 
         String token = jwtUtil.generateToken(user.getUsername(), List.of(user.getRole()));
 
-
-
+        log.info("Пользователь {} успешно вошел", user.getEmail());
         return UserResponseDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
