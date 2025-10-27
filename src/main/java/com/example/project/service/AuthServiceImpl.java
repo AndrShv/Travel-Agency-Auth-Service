@@ -4,6 +4,7 @@ import com.example.project.dto.UserLoginDto;
 import com.example.project.dto.UserRegistrationDto;
 import com.example.project.dto.UserResponseDto;
 import com.example.project.enums.Role;
+import com.example.project.event.AuthEvent;
 import com.example.project.exceptions.*;
 import com.example.project.interfaces.AuthService;
 import com.example.project.jwt.JwtUtil;
@@ -25,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final AuthRabbitMsgServiceImpl rabbitMsgService;
 
     @Override
     public void registerUser(UserRegistrationDto dto) {
@@ -34,8 +36,6 @@ public class AuthServiceImpl implements AuthService {
             throw new UserAlreadyExistsException("Пользователь с таким email уже существует");
         }
 
-        log.info("Создание нового пользователя с email: {}", dto.getEmail());
-
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
@@ -44,32 +44,32 @@ public class AuthServiceImpl implements AuthService {
         user.setBalance(BigDecimal.ZERO);
         user.setActive(true);
 
-
-        log.info("Попытка сохранить пользователя: {}", user.getUsername(), dto.getEmail(), user.getRole());
-
         User savedUser = userRepository.save(user);
-
-        log.info("Пользователь успешно зарегистрирован: {}", savedUser.getUsername(), savedUser.getEmail(), savedUser.getRole());
+        log.info("Пользователь сохранен: {}", savedUser.getEmail());
     }
 
     @Override
     public UserResponseDto loginUser(UserLoginDto dto) {
-        log.info("Попытка входа пользователя: {}", dto.getEmail());
+        log.info("Попытка входа: {}", dto.getEmail());
 
         User user = userRepository.findByEmail(dto.getEmail())
-                .orElseThrow(() -> new UserNotFoundByEmailException("Пользователь с указанным email не найден."));
+                .orElseThrow(() -> new UserNotFoundByEmailException("Пользователь с таким email не найден."));
 
         if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            throw new InvalidPasswordException("Введен неверный пароль.");
-        }
-
-        if (user.getRole() == null) {
-            throw new InvalidUserRoleException("Профиль пользователя не настроен (отсутствует роль).");
+            throw new InvalidPasswordException("Неверный пароль.");
         }
 
         String token = jwtUtil.generateToken(user.getUsername(), List.of(user.getRole()));
 
-        log.info("Пользователь {} успешно вошел", user.getEmail());
+        AuthEvent event = new AuthEvent(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
+        );
+
+        rabbitMsgService.sendUserRegisteredEvent(event);
+        log.info("Событие отправлено в RabbitMQ: {}", event);
+
         return UserResponseDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())

@@ -32,7 +32,6 @@ public class SecurityConfig {
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/oauth2/**", "/api/auth/**").permitAll()
-
                         .requestMatchers("/css/**", "/static/s/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 ).formLogin(form -> form

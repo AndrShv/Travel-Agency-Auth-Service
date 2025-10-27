@@ -18,11 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(identifier)
-                .orElseThrow();
-
-        if (user == null) {
-            throw new UsernameNotFoundException("Пользователь не найден: " + identifier);
-        }
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден: " + identifier));
 
         if (!user.isActive()) {
             throw new UsernameNotFoundException("Пользователь неактивен: " + identifier);
@@ -30,5 +26,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return new CustomUserDetails(user);
     }
+
 }
 
