@@ -7,7 +7,7 @@
 <h2>Login</h2>
 <form th:action="@{/auth/login}" method="post" th:object="${userLoginDto}">
     <label>Email:</label>
-    <input type="text" th:field="*{email}" /><br/>
+    <input type="email" th:field="*{email}" /><br/>
     <label>Password:</label>
     <input type="password" th:field="*{password}" /><br/>
     <button type="submit">Login</button>
