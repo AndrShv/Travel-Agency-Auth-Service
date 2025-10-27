@@ -94,18 +94,18 @@ public class CustomOAuth2UserService extends OidcUserService {
     }
 
     private User createNewUser(String email, OidcUser oidcUser) {
-        User newUser = new User();
-        newUser.setEmail(email);
 
         String googleName = oidcUser.getFullName();
-        newUser.setUsername(googleName != null ? googleName : email);
+        String username = (googleName != null) ? googleName : email;
 
-        String generatedPhone = "oauth2-" + UUID.randomUUID().toString().substring(0, 8);
-
-        newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
-        newUser.setBalance(BigDecimal.ZERO);
-        newUser.setActive(true);
-        newUser.setRole(Role.USER);
+        User newUser = User.builder()
+                .email(email)
+                .username(username)
+                .password(passwordEncoder.encode(UUID.randomUUID().toString()))
+                .balance(BigDecimal.ZERO)
+                .active(true)
+                .role(Role.USER)
+                .build();
 
         System.out.println("➕ Создаём нового пользователя:");
         System.out.println("   Email: " + newUser.getEmail());
@@ -113,4 +113,5 @@ public class CustomOAuth2UserService extends OidcUserService {
 
         return userRepository.save(newUser);
     }
+
 }

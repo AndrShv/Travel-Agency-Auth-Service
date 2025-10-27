@@ -36,13 +36,14 @@ public class AuthServiceImpl implements AuthService {
             throw new UserAlreadyExistsException("Пользователь с таким email уже существует");
         }
 
-        User user = new User();
-        user.setUsername(dto.getUsername());
-        user.setEmail(dto.getEmail());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setRole(Role.USER);
-        user.setBalance(BigDecimal.ZERO);
-        user.setActive(true);
+        User user = User.builder()
+                .username(dto.getUsername())
+                .email(dto.getEmail())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .role(Role.USER)
+                .balance(BigDecimal.ZERO)
+                .active(true)
+                .build();
 
         User savedUser = userRepository.save(user);
         log.info("Пользователь сохранен: {}", savedUser.getEmail());
