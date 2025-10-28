@@ -13,4 +13,6 @@ public class AuthEvent {
     private UUID id;
     private String username;
     private String email;
+    private UUID tourId;
+    private String tourName;
 }

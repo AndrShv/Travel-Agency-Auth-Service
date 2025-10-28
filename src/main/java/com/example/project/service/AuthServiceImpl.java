@@ -46,6 +46,15 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         User savedUser = userRepository.save(user);
+
+        AuthEvent event = new AuthEvent();
+        event.setId(savedUser.getId());
+        event.setUsername(savedUser.getUsername());
+        event.setEmail(savedUser.getEmail());
+        rabbitMsgService.sendUserRegisteredEvent(event);
+
+        log.info("Событие отправлено в RabbitMQ: {}", event);
+
         log.info("Пользователь сохранен: {}", savedUser.getEmail());
     }
 
@@ -61,15 +70,6 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String token = jwtUtil.generateToken(user.getUsername(), List.of(user.getRole()));
-
-        AuthEvent event = new AuthEvent(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail()
-        );
-
-        rabbitMsgService.sendUserRegisteredEvent(event);
-        log.info("Событие отправлено в RabbitMQ: {}", event);
 
         return UserResponseDto.builder()
                 .id(user.getId())
