@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig  {
 
-    @Value("${queue.name}")
+    @Value("${auth.queue.name}")
     private String queueName;
 
     @Value("${spring.rabbitmq.username}")
