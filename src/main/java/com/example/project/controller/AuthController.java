@@ -50,11 +50,5 @@ public class AuthController {
             return "register";
         }
     }
-
-    // ---------------- HOME ----------------
-    @GetMapping("/home")
-    public String homePage() {
-        return "home";
-    }
 }
 
