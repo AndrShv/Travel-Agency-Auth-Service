@@ -11,12 +11,9 @@ import org.springframework.stereotype.Service;
 public class HomeAuthEventListener {
 
     @RabbitListener(queues = "home.travel.agency.queue")
-    @SendTo
     public AuthEvent handleTourCreated(AuthEvent event) {
-        System.out.println("Пользователь " + event.getUsername() +
-                " создал тур " + event.getTourName());
-
-        event.setEmail(event.getEmail() + " (processed)");
+        System.out.println("[Home Service] Получено событие аутентификации пользователя: "
+                + event.getUsername() + " (" + event.getEmail() + "), Действие: " + event.getActionType());
         return event;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.project.event;
 
+import com.example.project.enums.UserActionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,5 @@ public class AuthEvent {
     private String email;
     private UUID tourId;
     private String tourName;
+    private UserActionType actionType;
 }

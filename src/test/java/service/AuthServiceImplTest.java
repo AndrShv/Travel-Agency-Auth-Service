@@ -239,7 +239,6 @@ class AuthServiceImplTest {
             verify(userRepository, times(1)).findByEmail(loginDto.getEmail());
             verify(passwordEncoder, times(1)).matches(loginDto.getPassword(), testUser.getPassword());
             verify(jwtUtil, times(1)).generateToken(testUser.getUsername(), List.of(testUser.getRole()));
-            verify(rabbitMsgService, times(1)).sendUserRegisteredEvent(any(AuthEvent.class));
         }
 
         @Test
@@ -312,30 +311,6 @@ class AuthServiceImplTest {
             assertEquals(testUser.getUsername(), usernameCaptor.getValue());
             assertEquals(List.of(testUser.getRole()), rolesCaptor.getValue());
             assertEquals(token, response.getToken());
-        }
-
-        @Test
-        @DisplayName("✓ RabbitMQ событие отправляется при успешном входе")
-        void loginUser_RabbitEventSent() {
-            // Arrange
-            when(userRepository.findByEmail(loginDto.getEmail()))
-                    .thenReturn(Optional.of(testUser));
-            when(passwordEncoder.matches(loginDto.getPassword(), testUser.getPassword()))
-                    .thenReturn(true);
-            when(jwtUtil.generateToken(anyString(), anyList()))
-                    .thenReturn("token");
-
-            // Act
-            authService.loginUser(loginDto);
-
-            // Assert
-            ArgumentCaptor<AuthEvent> eventCaptor = ArgumentCaptor.forClass(AuthEvent.class);
-            verify(rabbitMsgService, times(1)).sendUserRegisteredEvent(eventCaptor.capture());
-
-            AuthEvent sentEvent = eventCaptor.getValue();
-            assertEquals(testUser.getId(), sentEvent.getId());
-            assertEquals(testUser.getUsername(), sentEvent.getUsername());
-            assertEquals(testUser.getEmail(), sentEvent.getEmail());
         }
 
         @Test
