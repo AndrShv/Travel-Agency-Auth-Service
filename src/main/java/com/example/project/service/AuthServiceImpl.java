@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
         // --- Log event ---
         LogEvent logEvent = new LogEvent(
                 UUID.randomUUID(),
-                EventType.LOGGING_EVENT,
+                EventType.REGISTER_EVENT,
                 savedUser.getId().toString(),
                 ServiceType.AUTH_SERVICE,
                 "User registered successfully"
@@ -91,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
         // --- Log event ---
         LogEvent logEvent = new LogEvent(
                 UUID.randomUUID(),
-                EventType.LOGGING_EVENT,
+                EventType.LOGIN_EVENT,
                 user.getId().toString(),
                 ServiceType.AUTH_SERVICE,
                 "User logged in successfully"

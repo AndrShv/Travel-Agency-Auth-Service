@@ -1,12 +1,16 @@
 package com.example.project.enums;
 
 public enum EventType {
-    AUTH_EVENT,
-    USER_EVENT,
-    TOUR_EVENT,
-    LOGGING_EVENT,
-    BOOKING_EVENT,
+    CREATE_EVENT,
+    UPDATE_EVENT,
+    DELETE_EVENT,
+    READ_EVENT,
+    LOGIN_EVENT,
+    LOGOUT_EVENT,
+    REGISTER_EVENT,
+    BOOK_EVENT,
     PAYMENT_EVENT,
-    NOTIFICATION_EVENT,
-    ANALYTICS_EVENT
+    CANCEL_EVENT,
+    ERROR_EVENT,
+    INFO_EVENT
 }

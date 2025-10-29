@@ -30,3 +30,78 @@
 2025-10-29T11:49:33.858+02:00  INFO 62963 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-10-29T11:49:33.860+02:00  INFO 62963 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-10-29T11:49:33.865+02:00  INFO 62963 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-29T16:50:41.622+02:00  INFO 65147 --- [restartedMain] com.example.project.AuthApplication      : Starting AuthApplication using Java 21.0.7 with PID 65147 (/Users/andrshv/IdeaProjects/travel-agency-modified/target/classes started by andrshv in /Users/andrshv/IdeaProjects/travel-agency-modified)
+2025-10-29T16:50:41.623+02:00  INFO 65147 --- [restartedMain] com.example.project.AuthApplication      : The following 1 profile is active: "dev"
+2025-10-29T16:50:41.640+02:00  INFO 65147 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29T16:50:41.640+02:00  INFO 65147 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29T16:50:41.897+02:00  INFO 65147 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29T16:50:41.923+02:00  INFO 65147 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 1 JPA repository interface.
+2025-10-29T16:50:42.221+02:00  INFO 65147 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-10-29T16:50:42.226+02:00  INFO 65147 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-29T16:50:42.226+02:00  INFO 65147 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2025-10-29T16:50:42.240+02:00  INFO 65147 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-29T16:50:42.240+02:00  INFO 65147 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 600 ms
+2025-10-29T16:50:42.315+02:00  INFO 65147 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29T16:50:42.330+02:00  INFO 65147 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-10-29T16:50:42.338+02:00  INFO 65147 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-29T16:50:42.403+02:00  INFO 65147 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29T16:50:42.411+02:00  INFO 65147 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-29T16:50:42.537+02:00  INFO 65147 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@61d660f
+2025-10-29T16:50:42.537+02:00  INFO 65147 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-29T16:50:42.805+02:00  INFO 65147 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29T16:50:42.820+02:00  INFO 65147 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29T16:50:43.112+02:00  WARN 65147 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29T16:50:43.271+02:00  INFO 65147 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7f14142f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@44995b1f, org.springframework.security.web.context.SecurityContextHolderFilter@71ecd948, org.springframework.security.web.header.HeaderWriterFilter@3915c90a, org.springframework.web.filter.CorsFilter@15cd3be8, org.springframework.security.web.authentication.logout.LogoutFilter@34459b1f, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@63ed8509, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@462b9c17, com.example.project.jwt.JwtFilter@3624950b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1de16e37, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@47bc0e99, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5b623a7c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@f9cc662, org.springframework.security.web.session.SessionManagementFilter@33d1a9d, org.springframework.security.web.access.ExceptionTranslationFilter@6a6570df, org.springframework.security.web.access.intercept.AuthorizationFilter@683b2ec7]
+2025-10-29T16:50:44.208+02:00  WARN 65147 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-10-29T16:50:44.228+02:00  INFO 65147 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2025-10-29T16:50:44.229+02:00  INFO 65147 --- [restartedMain] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: localhost:5672
+2025-10-29T16:50:44.244+02:00  INFO 65147 --- [restartedMain] o.s.a.r.c.CachingConnectionFactory       : Created new connection: connectionFactory#1d91ed39:0/SimpleConnection@6513baa4 [delegate=amqp://guest@127.0.0.1:5672/, localPort=65161]
+2025-10-29T16:50:44.273+02:00  INFO 65147 --- [restartedMain] com.example.project.AuthApplication      : Started AuthApplication in 2.794 seconds (process running for 2.957)
+2025-10-29T17:03:00.866+02:00  INFO 65147 --- [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29T17:03:00.867+02:00  INFO 65147 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-29T17:03:00.868+02:00  INFO 65147 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-10-29T17:03:00.875+02:00 DEBUG 65147 --- [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2025-10-29T17:03:00.878+02:00 DEBUG 65147 --- [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-10-29T17:03:00.879+02:00 DEBUG 65147 --- [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2025-10-29T17:03:00.927+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    : ┌──▶ ВХОД: AuthRestController.login
+2025-10-29T17:03:00.927+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    : │ Параметры:
+2025-10-29T17:03:00.927+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    : │   • dto = [PROTECTED]
+2025-10-29T17:03:00.928+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : ┌─────────────────────────────────────────────────
+2025-10-29T17:03:00.928+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : │ ➤ ВХОД: AuthServiceImpl.loginUser
+2025-10-29T17:03:00.928+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : │ Параметры:
+2025-10-29T17:03:00.928+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : │   • dto = [PROTECTED]
+2025-10-29T17:03:00.928+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :   ┌──▶ ВХОД: AuthServiceImpl.loginUser
+2025-10-29T17:03:00.928+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :   │ Параметры:
+2025-10-29T17:03:00.928+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :   │   • dto = [PROTECTED]
+2025-10-29T17:03:00.928+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.service.AuthServiceImpl      : Попытка входа: testuser@example.com
+2025-10-29T17:03:00.968+02:00 DEBUG 65147 --- [http-nio-8081-exec-2] org.hibernate.SQL                        : select u1_0.id,u1_0.active,u1_0.balance,u1_0.email,u1_0.password,u1_0.reset_token,u1_0.role,u1_0.username from users u1_0 where u1_0.email=?
+2025-10-29T17:03:01.072+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   ┌─────────────────────────────────────────────────
+2025-10-29T17:03:01.072+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   │ ➤ ВХОД: LogRabbitMsgServiceImpl.sendLogEvent
+2025-10-29T17:03:01.072+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   │ Параметры:
+2025-10-29T17:03:01.072+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   │   • event = LogEvent LogEvent(id=d7a60e68-77c4-4eba-aaed-aa32cb1b3057, eventType=LOGGING_EVENT, userId=66136aff-b8ce-4a30-a5ea-0b41aabf8012, serviceType=AUTH_SERVICE, details=User logged in successfully)
+2025-10-29T17:03:01.072+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :     ┌──▶ ВХОД: LogRabbitMsgServiceImpl.sendLogEvent
+2025-10-29T17:03:01.072+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :     │ Параметры:
+2025-10-29T17:03:01.072+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :     │   • event = LogEvent LogEvent(id=d7a60e68-77c4-4eba-aaed-aa32cb1b3057, eventType=LOGGING_EVENT, userId=66136aff-b8ce-4a30-a5ea-0b41aabf8012, serviceType=AUTH_SERVICE, details=User logged in successfully)
+2025-10-29T17:03:01.083+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :     │ ✓ УСПЕШНО: LogRabbitMsgServiceImpl.sendLogEvent
+2025-10-29T17:03:01.083+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :     │ Результат: void/null
+2025-10-29T17:03:01.083+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :     │ ⏱ Время: 11 мс
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :     └──▶ ВЫХОД: LogRabbitMsgServiceImpl.sendLogEvent
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   │
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   │ ✓ УСПЕШНО: LogRabbitMsgServiceImpl.sendLogEvent
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   │ Результат: void/null
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   │ ⏱ Время: 12 мс
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    :   └─────────────────────────────────────────────────
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :   │ ✓ УСПЕШНО: AuthServiceImpl.loginUser
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :   │ Результат: UserResponseDto [PROTECTED]
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :   │ ⏱ Время: 156 мс
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    :   └──▶ ВЫХОД: AuthServiceImpl.loginUser
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : │
+2025-10-29T17:03:01.084+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : │ ✓ УСПЕШНО: AuthServiceImpl.loginUser
+2025-10-29T17:03:01.085+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : │ Результат: UserResponseDto [PROTECTED]
+2025-10-29T17:03:01.085+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : │ ⏱ Время: 156 мс
+2025-10-29T17:03:01.085+02:00  INFO 65147 --- [http-nio-8081-exec-2] c.e.project.log.DetailedLoggingAspect    : └─────────────────────────────────────────────────
+2025-10-29T17:03:01.085+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    : │ ✓ УСПЕШНО: AuthRestController.login
+2025-10-29T17:03:01.092+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    : │ Результат: ResponseEntity [PROTECTED]
+2025-10-29T17:03:01.092+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    : │ ⏱ Время: 158 мс
+2025-10-29T17:03:01.092+02:00  INFO 65147 --- [http-nio-8081-exec-2] com.example.project.log.LoggingAspect    : └──▶ ВЫХОД: AuthRestController.login
+2025-10-29T17:19:59.070+02:00  WARN 65147 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m46s256ms).
