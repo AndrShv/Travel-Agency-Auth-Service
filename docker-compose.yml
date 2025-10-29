@@ -1,16 +1,33 @@
 version: "3.8"
 
 services:
+  # --- MySQL ---
   mysql:
     image: mysql:8.0
-    container_name: authenticationservice-mysql
+    container_name: authservice-mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1111
-      MYSQL_DATABASE: authenticationservice
+      MYSQL_DATABASE: authservice
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+  # --- RabbitMQ ---
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: travel-agency-rabbit
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
 volumes:
   mysql_data:
+  rabbitmq_data:
