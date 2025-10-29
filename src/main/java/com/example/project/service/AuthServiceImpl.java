@@ -3,13 +3,18 @@ package com.example.project.service;
 import com.example.project.dto.UserLoginDto;
 import com.example.project.dto.UserRegistrationDto;
 import com.example.project.dto.UserResponseDto;
+import com.example.project.enums.EventType;
 import com.example.project.enums.Role;
+import com.example.project.enums.ServiceType;
 import com.example.project.event.AuthEvent;
+import com.example.project.event.LogEvent;
 import com.example.project.exceptions.*;
 import com.example.project.interfaces.AuthService;
 import com.example.project.jwt.JwtUtil;
 import com.example.project.model.User;
 import com.example.project.repository.UserRepository;
+import com.example.project.enums.UserActionType;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final AuthRabbitMsgServiceImpl rabbitMsgService;
+    private final LogRabbitMsgServiceImpl logRabbitMsgService;
 
     @Override
     public void registerUser(UserRegistrationDto dto) {
@@ -47,14 +53,25 @@ public class AuthServiceImpl implements AuthService {
 
         User savedUser = userRepository.save(user);
 
-        AuthEvent event = new AuthEvent();
-        event.setId(savedUser.getId());
-        event.setUsername(savedUser.getUsername());
-        event.setEmail(savedUser.getEmail());
-        rabbitMsgService.sendUserRegisteredEvent(event);
+        // --- Auth event ---
+        AuthEvent authEvent = new AuthEvent();
+        authEvent.setId(savedUser.getId());
+        authEvent.setUsername(savedUser.getUsername());
+        authEvent.setEmail(savedUser.getEmail());
+        authEvent.setActionType(UserActionType.CREATED);
+        rabbitMsgService.sendUserRegisteredEvent(authEvent);
 
-        log.info("Событие отправлено в RabbitMQ: {}", event);
+        // --- Log event ---
+        LogEvent logEvent = new LogEvent(
+                UUID.randomUUID(),
+                EventType.LOGGING_EVENT,
+                savedUser.getId().toString(),
+                ServiceType.AUTH_SERVICE,
+                "User registered successfully"
+        );
+        logRabbitMsgService.sendLogEvent(logEvent);
 
+        log.info("Событие отправлено в RabbitMQ: {}", authEvent);
         log.info("Пользователь сохранен: {}", savedUser.getEmail());
     }
 
@@ -70,6 +87,16 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String token = jwtUtil.generateToken(user.getUsername(), List.of(user.getRole()));
+
+        // --- Log event ---
+        LogEvent logEvent = new LogEvent(
+                UUID.randomUUID(),
+                EventType.LOGGING_EVENT,
+                user.getId().toString(),
+                ServiceType.AUTH_SERVICE,
+                "User logged in successfully"
+        );
+        logRabbitMsgService.sendLogEvent(logEvent);
 
         return UserResponseDto.builder()
                 .id(user.getId())

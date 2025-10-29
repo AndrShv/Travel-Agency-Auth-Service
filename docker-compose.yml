@@ -4,10 +4,10 @@ services:
   # --- MySQL ---
   mysql:
     image: mysql:8.0
-    container_name: authenticationservice-mysql
+    container_name: authservice-mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1111
-      MYSQL_DATABASE: authenticationservice
+      MYSQL_DATABASE: authservice
     ports:
       - "3306:3306"
     volumes:
