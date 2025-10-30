@@ -1,22 +1,21 @@
 package com.example.project.jwt;
 
-
 import com.example.project.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Component
 public class JwtUtil {
-
 
     @Value("${jwt.secret}")
     private String secret;
@@ -28,13 +27,13 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String phoneNumber, List<Role> roles) {
+    public String generateToken(String email, List<Role> roles) {
         List<String> authorities = roles.stream()
                 .map(Enum::name)
                 .collect(Collectors.toList());
 
         return Jwts.builder()
-                .setSubject(phoneNumber)
+                .setSubject(email)
                 .claim("authorities", authorities)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
@@ -42,7 +41,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String getPhoneNumberFromToken(String token) {
+    public String getEmailFromToken(String token) {
         return getClaims(token).getSubject();
     }
 
@@ -74,4 +73,3 @@ public class JwtUtil {
                 .getBody();
     }
 }
-
