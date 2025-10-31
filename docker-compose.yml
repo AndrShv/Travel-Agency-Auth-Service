@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-  # --- MySQL ---
   mysql:
     image: mysql:8.0
     container_name: authservice-mysql
@@ -13,8 +12,11 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
-  # --- RabbitMQ ---
   rabbitmq:
     image: rabbitmq:3.13-management
     container_name: travel-agency-rabbit
@@ -27,6 +29,27 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+
+  auth-service:
+    image: auth-service:1.0
+    container_name: travel-auth-service
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/authservice
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1111
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+    restart: unless-stopped
 
 volumes:
   mysql_data:
