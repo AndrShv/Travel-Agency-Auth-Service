@@ -19,7 +19,7 @@ spec:
             - containerPort: 8081
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://mysql:3306/authservice
+              value: jdbc:mysql://mysql-0.mysql:3306/authservice
             - name: SPRING_DATASOURCE_USERNAME
               value: root
             - name: SPRING_DATASOURCE_PASSWORD
