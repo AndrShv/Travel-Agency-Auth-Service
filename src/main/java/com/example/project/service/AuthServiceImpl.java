@@ -6,6 +6,7 @@ import com.example.project.dto.UserResponseDto;
 import com.example.project.enums.EventType;
 import com.example.project.enums.Role;
 import com.example.project.enums.ServiceType;
+import com.example.project.event.AuthBookingEvent;
 import com.example.project.event.AuthEvent;
 import com.example.project.event.LogEvent;
 import com.example.project.exceptions.*;
@@ -33,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtUtil jwtUtil;
     private final AuthRabbitMsgServiceImpl rabbitMsgService;
     private final LogRabbitMsgServiceImpl logRabbitMsgService;
+    private final BookingRabbitMsgServiceImpl bookingRabbitMsgService;
 
     @Override
     public void registerUser(UserRegistrationDto dto) {
@@ -53,6 +55,9 @@ public class AuthServiceImpl implements AuthService {
 
         User savedUser = userRepository.save(user);
 
+
+
+
         // --- Auth event ---
         AuthEvent authEvent = new AuthEvent();
         authEvent.setId(savedUser.getId());
@@ -70,6 +75,17 @@ public class AuthServiceImpl implements AuthService {
                 "User registered successfully"
         );
         logRabbitMsgService.sendLogEvent(logEvent);
+
+
+
+        AuthBookingEvent event = new AuthBookingEvent();
+        event.setUserId(savedUser.getId());
+        event.setUsername(user.getUsername());
+        event.setEmail(user.getEmail());
+
+        bookingRabbitMsgService.sendBookingEvent(event);
+
+
 
         log.info("Событие отправлено в RabbitMQ: {}", authEvent);
         log.info("Пользователь сохранен: {}", savedUser.getEmail());
@@ -97,6 +113,9 @@ public class AuthServiceImpl implements AuthService {
                 "User logged in successfully"
         );
         logRabbitMsgService.sendLogEvent(logEvent);
+
+
+
 
         return UserResponseDto.builder()
                 .id(user.getId())

@@ -65,6 +65,10 @@ public class RabbitMqConfig {
     public TopicExchange homeExchange() {
         return new TopicExchange("home.exchange", true, false);
     }
+    @Bean
+    public TopicExchange bookingExchange() {
+        return new TopicExchange("booking.exchange", true, false);
+    }
 
     // --- Queues ---
     @Bean
@@ -80,6 +84,12 @@ public class RabbitMqConfig {
     @Bean
     public Queue homeQueue() {
         return new Queue("home.travel.agency.queue", true);
+    }
+
+
+    @Bean
+    public Queue bookingQueue() {
+        return new Queue("booking.travel.agency.queue", true);
     }
 
     // --- Bindings ---
@@ -98,18 +108,25 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(homeQueue).to(homeExchange).with("home.#");
     }
 
+    @Bean
+    public Binding bindingBooking(Queue bookingQueue, TopicExchange bookingExchange) {
+        return BindingBuilder.bind(bookingQueue).to(bookingExchange).with("booking.#");
+    }
     // --- Declarables ---
     @Bean
     public Declarables rabbitDeclarables() {
         return new Declarables(
                 authExchange(),
+                bookingExchange(),
                 logExchange(),
                 homeExchange(),
                 homeQueue(),
                 authQueue(),
+                bookingQueue(),
                 logQueue(),
                 bindingHome(homeQueue(), homeExchange()),
                 bindingAuth(authQueue(), authExchange()),
+                bindingBooking(bookingQueue(), bookingExchange()),
                 bindingLog(logQueue(), logExchange())
         );
     }
