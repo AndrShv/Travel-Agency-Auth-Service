@@ -83,6 +83,8 @@ public class AuthServiceImpl implements AuthService {
         event.setUsername(user.getUsername());
         event.setEmail(user.getEmail());
 
+        log.info("Отправка события в Booking Service: {}",
+                        "User ID: " + event.getUserId() + "Username: " + event.getUsername() + "Email: " + event.getEmail());
         bookingRabbitMsgService.sendBookingEvent(event);
 
 
@@ -113,6 +115,7 @@ public class AuthServiceImpl implements AuthService {
                 "User logged in successfully"
         );
         logRabbitMsgService.sendLogEvent(logEvent);
+
 
 
 
