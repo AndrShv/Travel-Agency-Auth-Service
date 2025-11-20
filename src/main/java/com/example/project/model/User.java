@@ -6,13 +6,16 @@ import java.util.UUID;
 
 import com.example.project.enums.Role;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "users")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
