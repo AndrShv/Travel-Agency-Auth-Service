@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -55,18 +56,22 @@ public class AuthServiceImpl implements AuthService {
 
         User savedUser = userRepository.save(user);
 
-
-
+        // --- Booking event (в отдельном методе) ---
+        sendBookingEventToQueue(savedUser);
 
         // --- Auth event ---
+        log.info("Создание AuthEvent");
         AuthEvent authEvent = new AuthEvent();
         authEvent.setId(savedUser.getId());
         authEvent.setUsername(savedUser.getUsername());
         authEvent.setEmail(savedUser.getEmail());
         authEvent.setActionType(UserActionType.CREATED);
+        log.info("Отправка AuthEvent");
         rabbitMsgService.sendUserRegisteredEvent(authEvent);
+        log.info("AuthEvent отправлено");
 
         // --- Log event ---
+        log.info("Создание LogEvent");
         LogEvent logEvent = new LogEvent(
                 UUID.randomUUID(),
                 EventType.REGISTER_EVENT,
@@ -74,23 +79,25 @@ public class AuthServiceImpl implements AuthService {
                 ServiceType.AUTH_SERVICE,
                 "User registered successfully"
         );
+        log.info("Отправка LogEvent");
         logRabbitMsgService.sendLogEvent(logEvent);
+        log.info("LogEvent отправлено");
+
+        log.warn("Пользователь сохранен: {}", savedUser.getEmail());
+    }
 
 
-
+    public void sendBookingEventToQueue(User user) {
         AuthBookingEvent event = new AuthBookingEvent();
-        event.setUserId(savedUser.getId());
+        event.setUserId(user.getId());
         event.setUsername(user.getUsername());
         event.setEmail(user.getEmail());
-
-        log.info("Отправка события в Booking Service: {}",
-                        "User ID: " + event.getUserId() + "Username: " + event.getUsername() + "Email: " + event.getEmail());
-        bookingRabbitMsgService.sendBookingEvent(event);
-
-
-
-        log.info("Событие отправлено в RabbitMQ: {}", authEvent);
-        log.info("Пользователь сохранен: {}", savedUser.getEmail());
+        try {
+            bookingRabbitMsgService.sendBookingEvent(event);
+            log.warn("✅ AuthBookingEvent успешно отправлено!");
+        } catch (Exception e) {
+            log.error("❌ КРИТИЧЕСКАЯ ОШИБКА при отправке AuthBookingEvent:", e);
+        }
     }
 
     @Override
@@ -115,10 +122,6 @@ public class AuthServiceImpl implements AuthService {
                 "User logged in successfully"
         );
         logRabbitMsgService.sendLogEvent(logEvent);
-
-
-
-
 
         return UserResponseDto.builder()
                 .id(user.getId())
