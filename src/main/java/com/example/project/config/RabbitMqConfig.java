@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -67,6 +68,7 @@ public class RabbitMqConfig {
     }
 
     @Bean
+    @Qualifier("bookingExchange")
     public TopicExchange bookingExchange() {
         return new TopicExchange("booking.exchange", true, false);
     }
@@ -114,22 +116,5 @@ public class RabbitMqConfig {
     }
 
     // --- Declarables ---
-    @Bean
-    public Declarables rabbitDeclarables() {
-        return new Declarables(
-                authExchange(),
-                bookingExchange(),
-                logExchange(),
-                homeExchange(),
-                homeQueue(),
-                authQueue(),
-                bookingQueue(),
-                logQueue(),
-                bindingHome(homeQueue(), homeExchange()),
-                bindingAuth(authQueue(), authExchange()),
-                bindingBooking(bookingQueue(), bookingExchange()),
-                bindingLog(logQueue(), logExchange())
-        );
-    }
 
 }

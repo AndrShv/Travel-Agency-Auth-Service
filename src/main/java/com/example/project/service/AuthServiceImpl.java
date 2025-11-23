@@ -6,7 +6,6 @@ import com.example.project.dto.UserResponseDto;
 import com.example.project.enums.EventType;
 import com.example.project.enums.Role;
 import com.example.project.enums.ServiceType;
-import com.example.project.event.AuthBookingEvent;
 import com.example.project.event.AuthEvent;
 import com.example.project.event.LogEvent;
 import com.example.project.exceptions.*;
@@ -15,7 +14,6 @@ import com.example.project.jwt.JwtUtil;
 import com.example.project.model.User;
 import com.example.project.repository.UserRepository;
 import com.example.project.enums.UserActionType;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,13 +27,11 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final AuthRabbitMsgServiceImpl rabbitMsgService;
     private final LogRabbitMsgServiceImpl logRabbitMsgService;
-    private final BookingRabbitMsgServiceImpl bookingRabbitMsgService;
 
     @Override
     public void registerUser(UserRegistrationDto dto) {
@@ -56,22 +52,15 @@ public class AuthServiceImpl implements AuthService {
 
         User savedUser = userRepository.save(user);
 
-        // --- Booking event (в отдельном методе) ---
-        sendBookingEventToQueue(savedUser);
-
         // --- Auth event ---
-        log.info("Создание AuthEvent");
         AuthEvent authEvent = new AuthEvent();
         authEvent.setId(savedUser.getId());
         authEvent.setUsername(savedUser.getUsername());
         authEvent.setEmail(savedUser.getEmail());
         authEvent.setActionType(UserActionType.CREATED);
-        log.info("Отправка AuthEvent");
         rabbitMsgService.sendUserRegisteredEvent(authEvent);
-        log.info("AuthEvent отправлено");
 
         // --- Log event ---
-        log.info("Создание LogEvent");
         LogEvent logEvent = new LogEvent(
                 UUID.randomUUID(),
                 EventType.REGISTER_EVENT,
@@ -79,25 +68,11 @@ public class AuthServiceImpl implements AuthService {
                 ServiceType.AUTH_SERVICE,
                 "User registered successfully"
         );
-        log.info("Отправка LogEvent");
         logRabbitMsgService.sendLogEvent(logEvent);
-        log.info("LogEvent отправлено");
 
-        log.warn("Пользователь сохранен: {}", savedUser.getEmail());
-    }
+        log.info("Пользователь сохранен: {}", savedUser.getEmail());
 
 
-    public void sendBookingEventToQueue(User user) {
-        AuthBookingEvent event = new AuthBookingEvent();
-        event.setUserId(user.getId());
-        event.setUsername(user.getUsername());
-        event.setEmail(user.getEmail());
-        try {
-            bookingRabbitMsgService.sendBookingEvent(event);
-            log.warn("✅ AuthBookingEvent успешно отправлено!");
-        } catch (Exception e) {
-            log.error("❌ КРИТИЧЕСКАЯ ОШИБКА при отправке AuthBookingEvent:", e);
-        }
     }
 
     @Override
@@ -131,4 +106,6 @@ public class AuthServiceImpl implements AuthService {
                 .token(token)
                 .build();
     }
+
+
 }
