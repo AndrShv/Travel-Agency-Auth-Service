@@ -2,17 +2,21 @@ package com.example.project.model;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.project.enums.Role;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "users")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -46,4 +50,9 @@ public class User {
 
     @Column(name = "active", nullable = false)
     private boolean active;
+
+
+    @Column(name = "reset_token_created_at")
+    private LocalDateTime resetTokenCreatedAt;
+
 }
