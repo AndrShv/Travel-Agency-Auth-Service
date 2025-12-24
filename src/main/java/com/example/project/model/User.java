@@ -2,6 +2,7 @@ package com.example.project.model;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.project.enums.Role;
@@ -49,4 +50,9 @@ public class User {
 
     @Column(name = "active", nullable = false)
     private boolean active;
+
+
+    @Column(name = "reset_token_created_at")
+    private LocalDateTime resetTokenCreatedAt;
+
 }
