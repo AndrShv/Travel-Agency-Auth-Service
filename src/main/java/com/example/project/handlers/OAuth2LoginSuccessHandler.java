@@ -64,7 +64,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             }
         }
 
-        response.sendRedirect("/main");
+        response.sendRedirect("http://localhost:8082/main");
     }
 
 }

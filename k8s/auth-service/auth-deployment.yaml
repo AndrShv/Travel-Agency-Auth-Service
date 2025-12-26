@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-service-1-6
+  name: auth-service-1-8
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth-service-1-6
+      app: auth-service-1-8
   template:
     metadata:
       labels:
-        app: auth-service-1-6
+        app: auth-service-1-8
     spec:
       containers:
         - name: auth-service
-          image: auth-service-1-6:latest
+          image: auth-service-1-8:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081

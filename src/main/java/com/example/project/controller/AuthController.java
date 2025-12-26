@@ -31,7 +31,7 @@ public class AuthController {
     public String loginSubmit(@ModelAttribute UserLoginDto userLoginDto, Model model) {
         try {
             authService.loginUser(userLoginDto);
-            return "redirect:/home";
+            return "redirect:http://localhost:8082/main";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             return "auth/login";
