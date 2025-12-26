@@ -43,6 +43,6 @@ public class JwtLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         response.addCookie(cookie);
 
-        response.sendRedirect("/main");
+        response.sendRedirect("http://localhost:8082/main");
     }
 }
