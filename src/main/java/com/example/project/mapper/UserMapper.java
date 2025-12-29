@@ -1,6 +1,7 @@
 package com.example.project.mapper;
 
 
+import com.example.project.dto.UserDTO;
 import com.example.project.dto.UserRegistrationDto;
 import com.example.project.enums.Role;
 import com.example.project.model.User;
@@ -11,8 +12,13 @@ import org.mapstruct.Named;
 public interface UserMapper {
 
     @Mapping(target = "role", source = "role", qualifiedByName = "toRole")
+    User toUser(UserDTO userDTO);
+
+    @Mapping(target = "role", source = "role", qualifiedByName = "toRole")
     User toUser(UserRegistrationDto dto);
 
+    @Mapping(target = "role", source = "role", qualifiedByName = "fromRole")
+    UserDTO toUserDTO(User user);
 
     @Named("toRole")
     default Role toRole(String role) {
@@ -24,3 +30,4 @@ public interface UserMapper {
         return role == null ? null : role.name();
     }
 }
+
