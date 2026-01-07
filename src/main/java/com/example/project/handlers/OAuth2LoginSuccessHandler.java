@@ -48,19 +48,24 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 List<Role> roles = List.of(user.getRole());
                 String token = jwtUtil.generateToken(identifier, roles);
 
+                // --- Cookie ---
                 Cookie jwtCookie = new Cookie("jwt", token);
                 jwtCookie.setHttpOnly(true);
                 jwtCookie.setPath("/");
                 jwtCookie.setMaxAge(7 * 24 * 60 * 60);
                 response.addCookie(jwtCookie);
 
-                log.info("✅ JWT выдан и помещён в cookie пользователю {}", email);
+                // --- Header ---
+                response.setHeader("Authorization", "Bearer " + token);
+
+                log.info("✅ JWT выдан пользователю {} и помещён в cookie + header", email);
             } else {
                 log.warn("⚠️ Пользователь с email {} не найден при OAuth2 login", email);
             }
         }
 
-        response.sendRedirect("/main");
+        response.sendRedirect("http://localhost:8082/main");
     }
+
 }
 
